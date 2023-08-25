@@ -1,6 +1,6 @@
 plugins {
 	java
-	alias(libs.plugins.spring.boot)
+	alias(libs.plugins.quarkus)
 	alias(libs.plugins.jib)
 	alias(libs.plugins.owasp)
 	`maven-publish`
@@ -33,42 +33,35 @@ repositories {
 }
 
 dependencies {
-	implementation(platform(libs.spring.boot.dependencies))
-	annotationProcessor(platform(libs.spring.boot.dependencies))
-	implementation(libs.spring.boot.starter.actuator)
-	implementation(libs.spring.boot.starter.web)
-	implementation(libs.spring.boot.starter.webflux)
-	implementation(libs.spring.boot.starter.security)
-	implementation(libs.spring.boot.starter.oauth2.client)
+	implementation(enforcedPlatform(libs.quarkus.bom))
+	annotationProcessor(enforcedPlatform(libs.quarkus.bom))
+	implementation(libs.pulsar.client.admin)
+	implementation(libs.quarkus.arc)
+    implementation(libs.quarkus.picocli)
 	compileOnly(libs.lombok)
 	annotationProcessor(libs.lombok)
-	testImplementation(libs.spring.boot.starter.test)
+	testImplementation(libs.quarkus.junit5)
 }
 
 tasks.withType<Test> {
 	useJUnitPlatform()
+	systemProperty("java.util.logging.manager", "org.jboss.logmanager.LogManager")
+}
+
+tasks.withType<JavaCompile> {
+	options.encoding = "UTF-8"
+	options.compilerArgs.add("-parameters")
 }
 
 dependencyCheck {
 	format = org.owasp.dependencycheck.reporting.ReportGenerator.Format.ALL.toString()
 }
 
-
-springBoot {
-	buildInfo {
-		properties {
-			artifact.set(tasks.named<Jar>("bootJar").get().archiveFileName.get())
-		}
-	}
-}
-
-
 publishing {
 	publications {
 		create<MavenPublication>(project.name) {
 			from(components["java"])
 			artifactId = project.name
-			artifact((project.tasks.named("bootJar").get() as AbstractArchiveTask).archiveFile.get())
 		}
 	}
 
@@ -108,6 +101,6 @@ val configureS3Endpoint by tasks.registering {
 }
 
 tasks.withType(PublishToMavenRepository::class) {
-	dependsOn(tasks.named("bootJar").get())
+	dependsOn(tasks.jar)
 	dependsOn(configureS3Endpoint)
 }
