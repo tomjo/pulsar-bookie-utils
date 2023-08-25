@@ -1,7 +1,3 @@
 spring:
-  servlet:
-    multipart:
-      max-file-size: 100MB
-      max-request-size: 100MB
   application:
     name: bookie-optimize

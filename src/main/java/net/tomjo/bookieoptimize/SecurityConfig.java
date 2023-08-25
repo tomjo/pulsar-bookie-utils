@@ -1,4 +1,4 @@
-package net.tomjo.Bookie-optimize;
+package net.tomjo.bookieoptimize;
 
 import net.tomjo.spring.security.KeycloakRealmRolesGrantedAuthoritiesMapper;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -22,7 +22,7 @@ import org.springframework.web.client.RestTemplate;
 @ConditionalOnProperty(name = "security.enabled", havingValue = "true", matchIfMissing = true)
 public class SecurityConfig {
 
-    public static final String BOOKIE-OPTIMIZE_ROLE = "bookie-optimize";
+    public static final String BOOKIE_OPTIMIZE_ROLE = "bookie-optimize";
 
     @Bean
     public RestTemplate restTemplate() {
@@ -43,7 +43,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http, InMemoryClientRegistrationRepository clientRegistrationRepository) throws Exception {
         return http.authorizeHttpRequests(l -> l
                         .requestMatchers("/actuator/health").permitAll()
-                        .anyRequest().hasRole(bookie-optimize_ROLE))
+                        .anyRequest().hasRole(BOOKIE_OPTIMIZE_ROLE))
                 .oauth2Login(Customizer.withDefaults())
                 .logout(l -> l.logoutSuccessHandler(new OidcClientInitiatedLogoutSuccessHandler(clientRegistrationRepository)))
                 .csrf(AbstractHttpConfigurer::disable)
