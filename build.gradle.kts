@@ -1,9 +1,7 @@
 plugins {
 	java
 	alias(libs.plugins.quarkus)
-	alias(libs.plugins.jib)
 	alias(libs.plugins.owasp)
-	`maven-publish`
 }
 
 val projectVersion: String by project
@@ -13,7 +11,8 @@ version = projectVersion
 
 tasks.wrapper {
 	distributionType = Wrapper.DistributionType.ALL
-	gradleVersion = "8.3"
+	gradleVersion = "8.4"
+	distributionSha256Sum= "f2b9ed0faf8472cbe469255ae6c86eddb77076c75191741b4a462f33128dd419"
 }
 
 configurations {
@@ -33,14 +32,20 @@ repositories {
 }
 
 dependencies {
-	implementation(enforcedPlatform(libs.quarkus.bom))
 	annotationProcessor(enforcedPlatform(libs.quarkus.bom))
+	implementation(enforcedPlatform(libs.quarkus.bom))
 	implementation(libs.pulsar.client.admin)
+	implementation(libs.pulsar.metadata)
+	implementation(libs.pulsar.managed.ledger)
 	implementation(libs.quarkus.arc)
     implementation(libs.quarkus.picocli)
-	compileOnly(libs.lombok)
-	annotationProcessor(libs.lombok)
-	testImplementation(libs.quarkus.junit5)
+    implementation(libs.bookkeeper){
+		exclude(group = "org.bouncycastle", module = "bc-fips")
+	}
+    implementation(libs.zookeeper){
+		exclude(group = "org.bouncycastle", module = "bc-fips")
+	}
+	implementation(libs.vavr)
 }
 
 tasks.withType<Test> {
@@ -57,50 +62,7 @@ dependencyCheck {
 	format = org.owasp.dependencycheck.reporting.ReportGenerator.Format.ALL.toString()
 }
 
-publishing {
-	publications {
-		create<MavenPublication>(project.name) {
-			from(components["java"])
-			artifactId = project.name
-		}
-	}
-
-	repositories {
-		maven {
-			val s3MavenRepository: String by project
-			url = uri(s3MavenRepository)
-			credentials(AwsCredentials::class) {
-				if (project.hasProperty("s3AccessKey")) {
-					val s3AccessKey: String by project
-					accessKey = s3AccessKey
-				}
-				if (project.hasProperty("s3SecretKey")) {
-					val s3SecretKey: String by project
-					secretKey = s3SecretKey
-				}
-			}
-		}
-	}
-}
-
-jib {
-	to {
-		image = project.property("container.image") as String
-		tags = setOf(project.version.toString())
-	}
-}
-
-val configureS3Endpoint by tasks.registering {
-	group = "publishing"
-	doFirst {
-		val s3EndPoint = System.getProperty("org.gradle.s3.endpoint")
-		if (s3EndPoint == null) {
-			System.setProperty("org.gradle.s3.endpoint", project.property("s3EndPoint") as String)
-		}
-	}
-}
-
-tasks.withType(PublishToMavenRepository::class) {
-	dependsOn(tasks.jar)
-	dependsOn(configureS3Endpoint)
+tasks.withType<AbstractArchiveTask>().configureEach {
+	isPreserveFileTimestamps = false
+	isReproducibleFileOrder = true
 }

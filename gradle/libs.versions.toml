@@ -3,8 +3,11 @@ junit = "5.10.0"
 mockito = "5.4.0"
 assertj = "3.24.2"
 lombok = "1.18.28"
-pulsar = "2.10.4"
-quarkus = "3.3.0"
+pulsar = "2.11.3"
+quarkus = "3.6.8"
+bookkeeper = "4.16.3"
+zookeeper = "3.8.3"
+vavr = "0.10.4"
 
 [libraries]
 junit-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit" }
@@ -19,15 +22,15 @@ quarkus-arc = { module = "io.quarkus:quarkus-arc" }
 quarkus-picocli = { module = "io.quarkus:quarkus-picocli" }
 quarkus-junit5 = { module = "io.quarkus:quarkus-junit5" }
 pulsar-client-admin = { module = "org.apache.pulsar:pulsar-client-admin", version.ref = "pulsar" }
-
-[bundles]
-junit-implementation = ["junit-api", "junit-params"]
-junit-runtime = ["junit-engine"]
-mockito = ["mockito-core", "mockito-junit"]
-test-implementation = ["junit-api", "junit-params", "mockito-core", "mockito-junit", "assertj"]
-test-runtime = ["junit-engine"]
+pulsar-client-normal = { module = "org.apache.pulsar:pulsar-client", version.ref = "pulsar" }
+pulsar-common = { module = "org.apache.pulsar:pulsar-common", version.ref = "pulsar" }
+pulsar-broker = { module = "org.apache.pulsar:pulsar-broker", version.ref = "pulsar" }
+pulsar-metadata = { module = "org.apache.pulsar:pulsar-metadata", version.ref = "pulsar" }
+pulsar-managed-ledger = { module = "org.apache.pulsar:managed-ledger", version.ref = "pulsar" }
+bookkeeper = { module = "org.apache.bookkeeper:bookkeeper-server", version.ref = "bookkeeper" }
+zookeeper = { module = "org.apache.zookeeper:zookeeper", version.ref = "zookeeper" }
+vavr = { module = "io.vavr:vavr", version.ref = "vavr" }
 
 [plugins]
 quarkus = { id = "io.quarkus", version.ref = "quarkus" }
 owasp = { id = "org.owasp.dependencycheck", version = "8.3.1" }
-jib = { id = "com.google.cloud.tools.jib", version = "3.3.2" }
