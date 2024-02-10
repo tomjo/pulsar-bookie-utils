@@ -32,3 +32,4 @@ jobs:
     uses: ./.github/workflows/owasp.yaml
     with:
       version: ${{ needs.determine_version.outputs.version }}
+    secrets: inherit
