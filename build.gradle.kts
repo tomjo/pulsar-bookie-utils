@@ -5,6 +5,7 @@ plugins {
 }
 
 val projectVersion: String by project
+val nvdApiKey: String? by project
 
 group = "net.tomjo"
 version = projectVersion
@@ -60,6 +61,8 @@ tasks.withType<JavaCompile> {
 
 dependencyCheck {
 	format = org.owasp.dependencycheck.reporting.ReportGenerator.Format.ALL.toString()
+	nvd.apiKey = nvdApiKey
+	analyzers.assemblyEnabled = false
 }
 
 tasks.withType<AbstractArchiveTask>().configureEach {

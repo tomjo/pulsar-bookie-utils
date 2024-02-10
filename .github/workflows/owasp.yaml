@@ -42,6 +42,7 @@ jobs:
       - name: OWASP dependency check
         env:
           ORG_GRADLE_PROJECT_projectVersion: ${{ inputs.version }}
+          ORG_GRADLE_PROJECT_nvdApiKey: ${{ secrets.NVD_API_KEY }}
         run: ./gradlew dependencyCheckAggregate
       - name: Upload build reports
         if: always()
