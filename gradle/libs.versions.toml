@@ -8,6 +8,7 @@ quarkus = "3.6.8"
 bookkeeper = "4.16.3"
 zookeeper = "3.8.3"
 vavr = "0.10.4"
+owasp = "9.0.9"
 
 [libraries]
 junit-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit" }
@@ -33,4 +34,4 @@ vavr = { module = "io.vavr:vavr", version.ref = "vavr" }
 
 [plugins]
 quarkus = { id = "io.quarkus", version.ref = "quarkus" }
-owasp = { id = "org.owasp.dependencycheck", version = "9.0.9" }
+owasp = { id = "org.owasp.dependencycheck", version.ref = "owasp" }
