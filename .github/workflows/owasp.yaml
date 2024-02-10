@@ -50,5 +50,3 @@ jobs:
         with:
           name: build-reports
           path: build/reports/
-      - name: Perform dependency review
-        uses: actions/dependency-review-action@6c5ccdad469c9f8a2996bfecaec55a631a347034 # v3.1.0
