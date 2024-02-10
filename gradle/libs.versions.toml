@@ -1,11 +1,8 @@
 [versions]
-junit = "5.10.0"
-mockito = "5.4.0"
-assertj = "3.24.2"
-lombok = "1.18.28"
+junit = "5.10.2"
 pulsar = "2.11.3"
-quarkus = "3.6.8"
-bookkeeper = "4.16.3"
+quarkus = "3.7.2"
+bookkeeper = "4.16.4"
 zookeeper = "3.8.3"
 vavr = "0.10.4"
 owasp = "9.0.9"
@@ -14,10 +11,6 @@ owasp = "9.0.9"
 junit-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit" }
 junit-params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "junit" }
 junit-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit" }
-mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito" }
-mockito-junit = { module = "org.mockito:mockito-junit-jupiter", version.ref = "mockito" }
-assertj = { module = "org.assertj:assertj-core", version.ref = "assertj" }
-lombok = { module = "org.projectlombok:lombok", version.ref = "lombok" }
 quarkus-bom = { module = "io.quarkus.platform:quarkus-bom", version.ref = "quarkus" }
 quarkus-arc = { module = "io.quarkus:quarkus-arc" }
 quarkus-picocli = { module = "io.quarkus:quarkus-picocli" }
