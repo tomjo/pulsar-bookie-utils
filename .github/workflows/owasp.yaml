@@ -29,7 +29,7 @@ jobs:
       - name: Set up JDK
         uses: actions/setup-java@0ab4596768b603586c0de567f2430c30f5b0d2b0 # v3.13.0
         with:
-          java-version: '11.0.21'
+          java-version: '17.0.10'
           distribution: 'liberica'
           architecture: 'x64'
       - uses: gradle/wrapper-validation-action@56b90f209b02bf6d1deae490e9ef18b21a389cd4 #v1.1.0
@@ -43,7 +43,7 @@ jobs:
         env:
           ORG_GRADLE_PROJECT_projectVersion: ${{ inputs.version }}
           ORG_GRADLE_PROJECT_nvdApiKey: ${{ secrets.NVD_API_KEY }}
-          GRADLE_OPTS: -Xmx4g
+          GRADLE_OPTS: -Xmx8g
         run: ./gradlew dependencyCheckAggregate
       - name: Upload build reports
         if: always()
