@@ -1,9 +1,9 @@
 [versions]
 junit = "5.10.2"
-pulsar = "2.11.3"
+pulsar = "3.2.0"
 quarkus = "3.7.2"
 bookkeeper = "4.16.4"
-zookeeper = "3.8.3"
+zookeeper = "3.9.1"
 vavr = "0.10.4"
 owasp = "9.0.9"
 
