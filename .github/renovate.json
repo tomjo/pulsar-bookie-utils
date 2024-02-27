@@ -10,11 +10,13 @@
   "packageRules": [
     {
       "matchManagers": ["github-actions"],
-      "addLabels": ["github-actions"]
+      "addLabels": ["github-actions"],
+      "groupName": "GitHub Actions"
     },
     {
       "matchManagers": ["gradle"],
-      "addLabels": ["java"]
+      "addLabels": ["java"],
+      "groupName": "Java dependencies"
     }
   ]
 }
