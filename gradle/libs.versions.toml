@@ -1,11 +1,11 @@
 [versions]
-junit = "5.10.2"
-pulsar = "3.2.1"
-quarkus = "3.8.3"
-bookkeeper = "4.16.4"
-zookeeper = "3.9.2"
-vavr = "0.10.4"
-owasp = "9.0.10"
+junit = "5.11.3"
+pulsar = "3.3.2"
+quarkus = "3.15.1"
+bookkeeper = "4.17.1"
+zookeeper = "3.9.3"
+vavr = "0.10.5"
+owasp = "9.2.0"
 
 [libraries]
 junit-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit" }
