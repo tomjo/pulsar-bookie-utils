@@ -12,8 +12,8 @@ version = projectVersion
 
 tasks.wrapper {
 	distributionType = Wrapper.DistributionType.ALL
-	gradleVersion = "8.6"
-	distributionSha256Sum= "85719317abd2112f021d4f41f09ec370534ba288432065f4b477b6a3b652910d"
+	gradleVersion = "9.9.3"
+	distributionSha256Sum= "5b28389b6ce6c651f4b04d7d190462e436afca9282d16c2c646ca416fd9e2747"
 }
 
 configurations {
